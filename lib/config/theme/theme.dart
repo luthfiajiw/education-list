@@ -4,14 +4,28 @@ import 'package:flutter/material.dart';
 class MainTheme {
   static ThemeData buildTheme() {
     return ThemeData(
+      colorScheme: ColorScheme.fromSeed(seedColor: Palette.secondary),
+      useMaterial3: true,
       scaffoldBackgroundColor: Colors.white,
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.white,
         elevation: 1,
+        scrolledUnderElevation: 1,
         surfaceTintColor: Colors.transparent,
         shadowColor: Colors.black,
       ),
-      textTheme: const TextTheme().apply(
+      textTheme: TextTheme(
+        bodySmall: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
+          color: Palette.neutralCaption
+        ),
+        titleMedium: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w700,
+          color: Palette.neutralTitle,
+        )
+      ).apply(
         bodyColor: Palette.mainText,
         displayColor: Palette.mainText
       ),
@@ -27,8 +41,24 @@ class MainTheme {
         ),
         elevation: 0,
       ),
-      colorScheme: ColorScheme.fromSeed(seedColor: Palette.primary),
-      useMaterial3: true,
+      inputDecorationTheme: InputDecorationTheme(
+        hintStyle: const TextStyle(
+          color: Colors.grey,
+          fontWeight: FontWeight.w300,
+          fontSize: 14
+        ),
+        filled: true,
+        fillColor: Palette.neutralBtn,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: BorderSide.none
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: BorderSide.none
+        ),
+        contentPadding: const EdgeInsets.fromLTRB(16, 12, 0, 12),
+      )
     );
   }
 }

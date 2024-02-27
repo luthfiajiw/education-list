@@ -1,5 +1,7 @@
 import 'package:education_list/core/widgets/appbar.dart';
 import 'package:education_list/core/widgets/button_filter.dart';
+import 'package:education_list/core/widgets/search_textfield.dart';
+import 'package:education_list/features/education/presentation/widgets/education_tile.dart';
 import 'package:flutter/material.dart';
 
 class EducationView extends StatelessWidget {
@@ -14,13 +16,35 @@ class EducationView extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 20.0),
             child: ButtonFilter(
-              isActive: true,
+              isActive: false,
               onTap: () {},
             ),
           )
         ]
       ),
-      body: const Center(
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: Stack(
+          children: [
+            ListView.builder(
+              physics: const AlwaysScrollableScrollPhysics(),
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                if (index == 0) {
+                  return const Column(
+                    children: [
+                      SearchTextfield(),
+                      EducationTile()
+                    ],
+                  );
+                }
+                return const EducationTile();
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
