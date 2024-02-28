@@ -1,5 +1,6 @@
 import 'package:education_list/config/theme/palette.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MainTheme {
   static ThemeData buildTheme() {
@@ -14,16 +15,23 @@ class MainTheme {
         surfaceTintColor: Colors.transparent,
         shadowColor: Colors.black,
       ),
-      textTheme: TextTheme(
-        bodySmall: TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.w400,
-          color: Palette.neutralCaption
-        ),
-        titleMedium: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w700,
-          color: Palette.neutralTitle,
+      textTheme: GoogleFonts.interTextTheme(
+        TextTheme(
+          bodySmall: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            color: Palette.neutralCaption
+          ),
+          titleMedium: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w700,
+            color: Palette.neutralTitle,
+          ),
+          titleLarge: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w700,
+            color: Palette.neutralTitle,
+          ),
         )
       ).apply(
         bodyColor: Palette.mainText,
