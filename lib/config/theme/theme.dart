@@ -22,6 +22,10 @@ class MainTheme {
             fontWeight: FontWeight.w400,
             color: Palette.neutralCaption
           ),
+          bodyMedium: TextStyle(
+            fontSize: 14,
+            color: Palette.neutralCaption
+          ),
           titleMedium: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w700,

@@ -21,9 +21,12 @@ class _SearchTextfieldState extends State<SearchTextfield> {
 
   onSearchChanged(String value) {
     if (_debounce?.isActive ?? false) _debounce?.cancel();
-    _debounce = Timer(const Duration(milliseconds: 500), () {
-        if (widget.onChanged != null) widget.onChanged!(value);
-    });
+    
+    if (widget.onChanged != null) {
+      _debounce = Timer(const Duration(milliseconds: 500), () {
+          widget.onChanged!(value);
+      });
+    }
   }
 
   @override
