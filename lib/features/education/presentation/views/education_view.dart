@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:education_list/core/widgets/appbar.dart';
 import 'package:education_list/core/widgets/button_filter.dart';
 import 'package:education_list/core/widgets/search_textfield.dart';
@@ -16,6 +18,8 @@ class EducationView extends StatefulWidget {
 }
 
 class _EducationViewState extends State<EducationView> {
+  TextEditingController searchController = TextEditingController(text: "");
+
   @override
   void initState() {
     Future.microtask(() {
@@ -40,7 +44,9 @@ class _EducationViewState extends State<EducationView> {
                 padding: const EdgeInsets.only(right: 20.0),
                 child: ButtonFilter(
                   isActive: false,
-                  onTap: () {},
+                  onTap: state.getEducationStatus == GetEducationStatus.loading
+                  ? null
+                  : () {},
                 ),
               )
             ]
@@ -60,15 +66,15 @@ class _EducationViewState extends State<EducationView> {
                 /// LIST
                 if (state.getEducationStatus == GetEducationStatus.done) ListView.builder(
                   physics: const AlwaysScrollableScrollPhysics(),
-                  itemCount: state.educationEntities!.length,
+                  itemCount: state.filteredEducationEntities!.length,
                   itemBuilder: (context, index) {
-                    EducationEntity entity = state.educationEntities![index];
+                    EducationEntity entity = state.filteredEducationEntities![index];
 
                     if (index == 0) {
                       return Column(
                         children: [
-                          const SizedBox(
-                            height: 88,
+                          SizedBox(
+                            height: searchController.text.isNotEmpty ? 121 : 88,
                             width: double.infinity,
                           ),
                           EducationTile(
@@ -77,6 +83,7 @@ class _EducationViewState extends State<EducationView> {
                         ],
                       );
                     }
+
                     return EducationTile(
                       entity: entity,
                     );
@@ -84,7 +91,15 @@ class _EducationViewState extends State<EducationView> {
                 ),
 
                 /// SEARCH INPUT
-                const SearchTextfield()
+                SearchTextfield(
+                  controller: searchController,
+                  onChanged: (value) {
+                    context.read<EducationCubit>().onSearchEducation(value);
+                    setState(() {
+                      searchController.text = value;
+                    });
+                  },
+                )
               ],
             ),
           ),

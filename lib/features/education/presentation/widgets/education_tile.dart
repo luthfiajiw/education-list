@@ -72,11 +72,12 @@ class EducationTile extends StatelessWidget {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(16),
-              child: AspectRatio(
-                aspectRatio: 1/1,
-                child: Stack(
-                  children: [
-                    CachedNetworkImage(
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  AspectRatio(
+                    aspectRatio: 1 / 1,
+                    child: CachedNetworkImage(
                       imageUrl: entity.thumbnail!.isNotEmpty
                       ? entity.thumbnail!
                       : entity.image!,
@@ -99,38 +100,38 @@ class EducationTile extends StatelessWidget {
                         );
                       },
                     ),
-
-                    /// OVERLAY VIDEO
-                    if (entity.contentFormat == 'video') Container(
-                      width: 88,
-                      height: 88,
-                      decoration: BoxDecoration(
-                        color: Colors.black38,
-                        borderRadius: BorderRadius.circular(16)
-                      ),
-                      child: Center(
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            Container(
-                              height: 26,
-                              width: 26,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(16)
-                              ),
+                  ),
+              
+                  /// OVERLAY VIDEO
+                  if (entity.contentFormat == 'video') Container(
+                    width: 88,
+                    height: 88,
+                    decoration: BoxDecoration(
+                      color: Colors.black38,
+                      borderRadius: BorderRadius.circular(16)
+                    ),
+                    child: Center(
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Container(
+                            height: 32.8,
+                            width: 32.8,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(16)
                             ),
-                            const Icon(
-                              Icons.play_circle_rounded,
-                              size: 32,
-                              color: Colors.black54,
-                            ),
-                          ],
-                        ),
+                          ),
+                          Icon(
+                            Icons.play_circle_rounded,
+                            size: 40,
+                            color: Colors.black.withOpacity(.70),
+                          ),
+                        ],
                       ),
-                    )
-                  ],
-                ),
+                    ),
+                  )
+                ],
               ),
             ),
           )

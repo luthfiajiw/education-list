@@ -52,7 +52,7 @@ class MainTheme {
       inputDecorationTheme: InputDecorationTheme(
         hintStyle: const TextStyle(
           color: Colors.grey,
-          fontWeight: FontWeight.w300,
+          fontWeight: FontWeight.w400,
           fontSize: 14
         ),
         filled: true,

@@ -17,7 +17,8 @@ class EducationCubit extends Cubit<EducationState> {
       if (result is DataSuccess && result.data != null) {
         emit(state.copyWith(
           getEducationStatus: GetEducationStatus.done,
-          educationEntities: result.data
+          educationEntities: result.data,
+          filteredEducationEntities: result.data,
         ));
       } else {
         emit(state.copyWith(
@@ -27,5 +28,17 @@ class EducationCubit extends Cubit<EducationState> {
     } catch (e) {
       rethrow;
     }
+  }
+
+  void onSearchEducation(String query) {
+    final filteredEducation = query.isEmpty 
+    ? state.educationEntities
+    : state.educationEntities?.where((education) {
+      return education.seoKeyword!.toLowerCase().contains(query) || education.shortContent!.toLowerCase().contains(query);
+    }).toList();
+
+    emit(state.copyWith(
+      filteredEducationEntities: filteredEducation
+    ));
   }
 }
