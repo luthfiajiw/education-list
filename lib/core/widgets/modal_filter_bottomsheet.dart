@@ -1,12 +1,12 @@
 import 'package:education_list/config/theme/palette.dart';
 import 'package:flutter/material.dart';
 
-class ModalBottomSheet extends StatelessWidget {
+class ModalFilterBottomSheet extends StatelessWidget {
   final VoidCallback? onReset;
   final VoidCallback? onSubmit;
   final Widget child;
 
-  const ModalBottomSheet({
+  const ModalFilterBottomSheet({
     super.key,
     this.onReset,
     this.onSubmit,

@@ -1,5 +1,5 @@
 import 'package:education_list/config/theme/palette.dart';
-import 'package:education_list/core/widgets/modal_bottomsheet.dart';
+import 'package:education_list/core/widgets/modal_filter_bottomsheet.dart';
 import 'package:education_list/features/education/presentation/cubit/education_cubit.dart';
 import 'package:education_list/features/education/presentation/cubit/education_state.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,7 @@ class ModalEducationFilter extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<EducationCubit, EducationState>(
       builder: (context, state) {
-        return ModalBottomSheet(
+        return ModalFilterBottomSheet(
           onReset: () {
             context.read<EducationCubit>().onResetFilter();
             Navigator.pop(context);
