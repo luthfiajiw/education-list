@@ -8,6 +8,7 @@ import 'package:education_list/features/education/domain/entities/eduation_entit
 import 'package:education_list/features/education/presentation/cubit/education_cubit.dart';
 import 'package:education_list/features/education/presentation/cubit/education_state.dart';
 import 'package:education_list/features/education/presentation/widgets/education_tile.dart';
+import 'package:education_list/features/education/presentation/widgets/modal_education_filter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -66,6 +67,17 @@ class _EducationViewState extends State<EducationView> with SingleTickerProvider
     }
   }
 
+  void showEducationFilter() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return ModalEducationFilter();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<EducationCubit, EducationState>(
@@ -83,10 +95,10 @@ class _EducationViewState extends State<EducationView> with SingleTickerProvider
                 Padding(
                   padding: const EdgeInsets.only(right: 20.0),
                   child: ButtonFilter(
-                    isActive: false,
+                    isActive: state.isFilterActive,
                     onTap: state.getEducationStatus == GetEducationStatus.loading
                     ? null
-                    : () {},
+                    : showEducationFilter,
                   ),
                 )
               ]

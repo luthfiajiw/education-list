@@ -26,8 +26,13 @@ class MainTheme {
             fontSize: 14,
             color: Palette.neutralCaption
           ),
-          titleMedium: TextStyle(
+          titleSmall: TextStyle(
             fontSize: 14,
+            fontWeight: FontWeight.w700,
+            color: Palette.neutralTitle,
+          ),
+          titleMedium: TextStyle(
+            fontSize: 16,
             fontWeight: FontWeight.w700,
             color: Palette.neutralTitle,
           ),
@@ -37,9 +42,6 @@ class MainTheme {
             color: Palette.neutralTitle,
           ),
         )
-      ).apply(
-        bodyColor: Palette.mainText,
-        displayColor: Palette.mainText
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         type: BottomNavigationBarType.fixed,
@@ -70,6 +72,33 @@ class MainTheme {
           borderSide: BorderSide.none
         ),
         contentPadding: const EdgeInsets.fromLTRB(16, 12, 0, 12),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          side: BorderSide(
+            width: 1,
+            color: Palette.neutral
+          ),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 24,
+            vertical: 12
+          )
+        )
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Palette.primary.withOpacity(.1),
+          surfaceTintColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+          side: BorderSide(
+            width: 1,
+            color: Palette.primary.withOpacity(.1)
+          ),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 24,
+            vertical: 12
+          )
+        )
       )
     );
   }

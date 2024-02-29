@@ -47,7 +47,7 @@ class EducationTile extends StatelessWidget {
                     entity.shortContent!,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.titleMedium,
+                    style: Theme.of(context).textTheme.titleSmall,
                   ),
                 ),
                 Text(

@@ -41,4 +41,31 @@ class EducationCubit extends Cubit<EducationState> {
       filteredEducationEntities: filteredEducation
     ));
   }
+
+  void onSelectFilter(String filter) {
+    List<String> newfilters = [];
+
+    if (state.filters!.contains(filter)) {
+      newfilters = state.filters!.where((e) => e != filter).toList();
+    } else {
+      newfilters = [...state.filters!, filter];
+    }
+
+    emit(state.copyWith(
+      filters: newfilters
+    ));
+  }
+
+  void onSubmitFilter() {
+    emit(state.copyWith(
+      isFilterActive: true
+    ));
+  }
+
+  void onResetFilter() {
+    emit(state.copyWith(
+      isFilterActive: false,
+      filters: []
+    ));
+  }
 }
