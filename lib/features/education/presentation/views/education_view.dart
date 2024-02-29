@@ -9,6 +9,7 @@ import 'package:education_list/features/education/presentation/cubit/education_c
 import 'package:education_list/features/education/presentation/cubit/education_state.dart';
 import 'package:education_list/features/education/presentation/widgets/education_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EducationView extends StatefulWidget {
@@ -18,15 +19,51 @@ class EducationView extends StatefulWidget {
   State<EducationView> createState() => _EducationViewState();
 }
 
-class _EducationViewState extends State<EducationView> {
+class _EducationViewState extends State<EducationView> with SingleTickerProviderStateMixin {
+  late AnimationController searchAnimationController;
+  ScrollController scrollController = ScrollController(
+    keepScrollOffset: true
+  );
   TextEditingController searchController = TextEditingController(text: "");
+  bool showSearchTextfield = true;
 
   @override
   void initState() {
+    searchAnimationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 250)
+    );
     Future.microtask(() {
       return context.read<EducationCubit>().onGetEducations();
     });
+
+    scrollController.addListener(_scrollListener);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    scrollController.removeListener(_scrollListener);
+    scrollController.dispose();
+    super.dispose();
+  }
+
+  void _scrollListener() {
+    if (scrollController.position.userScrollDirection == ScrollDirection.reverse) {
+      if (showSearchTextfield) {
+        searchAnimationController.forward();
+        setState(() {
+          showSearchTextfield = false;
+        });
+      }
+    } else if (scrollController.position.userScrollDirection == ScrollDirection.forward) {
+      if (!showSearchTextfield) {
+        searchAnimationController.reverse();
+        setState(() {
+          showSearchTextfield = true;
+        });
+      }
+    }
   }
 
   @override
@@ -75,6 +112,7 @@ class _EducationViewState extends State<EducationView> {
                 Visibility(
                   visible: state.getEducationStatus == GetEducationStatus.done && state.filteredEducationEntities!.isNotEmpty,
                   child: ListView.builder(
+                    controller: scrollController,
                     physics: const AlwaysScrollableScrollPhysics(),
                     itemCount: state.filteredEducationEntities!.length,
                     itemBuilder: (context, index) {
@@ -85,7 +123,6 @@ class _EducationViewState extends State<EducationView> {
                           children: [
                             SizedBox(
                               height: searchController.text.isNotEmpty ? 121 : 88,
-                              width: double.infinity,
                             ),
                             EducationTile(
                               entity: entity,
@@ -103,6 +140,7 @@ class _EducationViewState extends State<EducationView> {
             
                 /// SEARCH INPUT
                 SearchTextfield(
+                  animationController: searchAnimationController,
                   controller: searchController,
                   onChanged: (value) {
                     context.read<EducationCubit>().onSearchEducation(value);
